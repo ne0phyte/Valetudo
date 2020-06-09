@@ -172,6 +172,7 @@ async function updateHomePage() {
 
     try {
         let res = await ApiService.getCurrentStatus();
+        let currentZones = await ApiService.getCurrentZones();
         loadingBarHome.removeAttribute("indeterminate");
         fanspeedButton.removeAttribute("disabled");
         findRobotButton.removeAttribute("disabled");
@@ -183,6 +184,11 @@ async function updateHomePage() {
         }
 
         robotState.innerHTML = res.human_state;
+        if (currentZones.length === 1) {
+            robotState.innerHTML += "<br>" + currentZones[0].name;
+        } else if (currentZones.length == 2) {
+            robotState.innerHTML += "<br>" + currentZones[0].name + " / " + currentZones[1].name;
+        }
         if (res.error_code) {
             robotState.innerHTML +=
                 "<span class=\"robot-error\"><ons-icon icon=\"fa-exclamation-triangle\"></ons-icon> " +

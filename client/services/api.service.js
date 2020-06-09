@@ -109,6 +109,10 @@ export class ApiService {
         return await this.fetch("GET", "api/zones");
     }
 
+    static async getCurrentZones() {
+        return await this.fetch("GET", "api/current_zones");
+    }
+
     static async saveSpots(spotConfig) {
         await this.fetch("PUT", "api/spots", spotConfig);
     }
